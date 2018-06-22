@@ -1,4 +1,4 @@
-{% set version = '1.0.1' %}
+{% set version = "1.0.3" %}
 
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
@@ -12,7 +12,7 @@ source:
   url:
     - https://cran.r-project.org/src/contrib/tidyxl_{{ version }}.tar.gz
     - https://cran.r-project.org/src/contrib/Archive/tidyxl/tidyxl_{{ version }}.tar.gz
-  sha256: 561d1cbf7c6cb776f81034a4f712ea8011351a4bbeb4a13b27e42875f6529381
+  sha256: e9f891eea475d7841c4be6aa6703c743cea17336724663f3a7ad46cf7b692c0a
 
 build:
   number: 0
