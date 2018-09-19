@@ -1,5 +1,4 @@
-{% set version = "1.0.3" %}
-
+{% set version = '1.0.3' %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,13 +9,13 @@ package:
 source:
   fn: tidyxl_{{ version }}.tar.gz
   url:
-    - https://cran.r-project.org/src/contrib/tidyxl_{{ version }}.tar.gz
-    - https://cran.r-project.org/src/contrib/Archive/tidyxl/tidyxl_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/tidyxl_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/Archive/tidyxl/tidyxl_{{ version }}.tar.gz
   sha256: e9f891eea475d7841c4be6aa6703c743cea17336724663f3a7ad46cf7b692c0a
 
 build:
   merge_build_host: True  # [win]
-  number: 1
+  number: 2
   skip: true  # [win32]
   rpaths:
     - lib/R/lib/
@@ -24,33 +23,36 @@ build:
 
 requirements:
   build:
-    - posix                # [win]
-    - {{ compiler('c') }}        # [unix]
-    - {{ compiler('m2w64_c') }}  # [win]
-    - {{ compiler('cxx') }}        # [unix]
-    - {{ compiler('m2w64_cxx') }}  # [win]
+    - {{ compiler('c') }}        # [not win]
+    - {{ compiler('cxx') }}      # [not win]
+    - {{native}}toolchain        # [win]
+    - {{posix}}filesystem        # [win]
+    - {{posix}}make
+    - {{posix}}sed               # [win]
+    - {{posix}}coreutils         # [win]
+    - {{posix}}zip               # [win]
   host:
     - r-base
     - r-rcpp
     - r-piton
-
   run:
     - r-base
+    - {{native}}gcc-libs         # [win]
     - r-rcpp
     - r-piton
 
 test:
   commands:
-    - $R -e "library('tidyxl')"  # [not win]
+    - $R -e "library('tidyxl')"           # [not win]
     - "\"%R%\" -e \"library('tidyxl')\""  # [win]
 
 about:
   home: https://github.com/nacnudus/tidyxl
   license: GPL-3
-  summary: "Imports non-tabular from Excel files into R.  Exposes cell content, position and formatting
+  summary: Imports non-tabular from Excel files into R.  Exposes cell content, position and formatting
     in a tidy structure for further manipulation. Tokenizes Excel formulas.  Supports
-    '.xlsx' and '.xlsm' via the embedded 'RapidXML' C++ library <http://rapidxml.sourceforge.net>. Does
-    not support '.xlsb' or '.xls'."
+    '.xlsx' and '.xlsm' via the embedded 'RapidXML' C++ library <http://rapidxml.sourceforge.net>.  Does
+    not support '.xlsb' or '.xls'.
   license_family: GPL3
   license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3'  # [unix]
   license_file: '{{ environ["PREFIX"] }}\R\share\licenses\GPL-3'  # [win]
@@ -62,3 +64,4 @@ extra:
     - daler
     - jdblischak
     - cbrueffer
+    - dbast
