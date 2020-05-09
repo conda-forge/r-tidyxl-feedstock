@@ -1,4 +1,4 @@
-{% set version = "1.0.5" %}
+{% set version = "1.0.6" %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -11,11 +11,11 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/tidyxl_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/tidyxl/tidyxl_{{ version }}.tar.gz
-  sha256: f0770f94f607dfb85df24bfa5d20428322af99a49b3515a2145b293220a3b0d9
+  sha256: cdd405c862e802d8fb8b206cee5f9225216995d858000acb387299ba4c7d0a33
 
 build:
   merge_build_host: true  # [win]
-  number: 1
+  number: 0
   skip: true  # [win32]
   rpaths:
     - lib/R/lib/
@@ -50,8 +50,7 @@ test:
 about:
   home: https://github.com/nacnudus/tidyxl
   license: GPL-3
-  summary: Imports non-tabular from Excel files into R.  Exposes cell content, position and formatting in a tidy structure for further manipulation. Tokenizes Excel
-    formulas.  Supports '.xlsx' and '.xlsm' via the embedded 'RapidXML' C++ library <http://rapidxml.sourceforge.net>.  Does not support '.xlsb' or '.xls'.
+  summary: Imports non-tabular from Excel files into R.  Exposes cell content, position and formatting in a tidy structure for further manipulation. Tokenizes Excel formulas.  Supports '.xlsx' and '.xlsm' via the embedded 'RapidXML' C++ library <http://rapidxml.sourceforge.net>.  Does not support '.xlsb' or '.xls'.
   license_family: GPL3
   license_file: {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3
 
