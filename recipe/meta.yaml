@@ -1,4 +1,4 @@
-{% set version = "1.0.8" %}
+{% set version = "1.0.9" %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -11,11 +11,11 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/tidyxl_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/tidyxl/tidyxl_{{ version }}.tar.gz
-  sha256: 301d48c7d88c7ac6c7a9950beefc60e31949a2b8289789f5059622b429971316
+  sha256: 5632546e4819700ab6613cc939568fed8dd754c1ef08e64b200dbed7b12941f2
 
 build:
   merge_build_host: true  # [win]
-  number: 2
+  number: 0
   skip: true  # [win32]
   rpaths:
     - lib/R/lib/
