@@ -3,6 +3,7 @@ About r-tidyxl-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/r-tidyxl-feedstock/blob/main/LICENSE.txt)
 
+
 About r-tidyxl
 --------------
 
@@ -11,6 +12,7 @@ Home: https://github.com/nacnudus/tidyxl
 Package license: GPL-3
 
 Summary: Imports non-tabular from Excel files into R.  Exposes cell content, position and formatting in a tidy structure for further manipulation. Tokenizes Excel formulas.  Supports '.xlsx' and '.xlsm' via the embedded 'RapidXML' C++ library <http://rapidxml.sourceforge.net>.  Does not support '.xlsb' or '.xls'.
+
 About r-tidyxl
 --------------
 
