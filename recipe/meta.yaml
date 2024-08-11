@@ -6,7 +6,6 @@ package:
   version: {{ version|replace("-", "_") }}
 
 source:
-  fn: tidyxl_{{ version }}.tar.gz
   url:
     - {{ cran_mirror }}/src/contrib/tidyxl_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/tidyxl/tidyxl_{{ version }}.tar.gz
@@ -14,7 +13,6 @@ source:
 
 build:
   number: 1
-  skip: true  # [win32]
   rpaths:
     - lib/R/lib/
     - lib/
@@ -35,11 +33,11 @@ requirements:
   host:
     - r-base
     - r-rcpp
-    - r-piton
+    - r-piton >=1.0.0
   run:
     - r-base
     - r-rcpp
-    - r-piton
+    - r-piton >=1.0.0
 
 test:
   commands:
@@ -47,11 +45,12 @@ test:
     - "\"%R%\" -e \"library('tidyxl')\""  # [win]
 
 about:
-  home: https://github.com/nacnudus/tidyxl
-  license: GPL-3
+  home: https://github.com/nacnudus/tidyxl, https://nacnudus.github.io/tidyxl/
+  license: MIT
   summary: Imports non-tabular from Excel files into R.  Exposes cell content, position and formatting in a tidy structure for further manipulation. Tokenizes Excel formulas.  Supports '.xlsx' and '.xlsm' via the embedded 'RapidXML' C++ library <http://rapidxml.sourceforge.net>.  Does not support '.xlsb' or '.xls'.
-  license_family: GPL3
-  license_file: {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3
+  license_family: MIT
+  license_file:
+    - {{ environ["PREFIX"] }}/lib/R/share/licenses/MIT
 
 extra:
   recipe-maintainers:
