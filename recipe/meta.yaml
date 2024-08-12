@@ -1,22 +1,18 @@
 {% set version = "1.0.10" %}
 {% set posix = 'm2-' if win else '' %}
-{% set native = 'm2w64-' if win else '' %}
 
 package:
   name: r-tidyxl
   version: {{ version|replace("-", "_") }}
 
 source:
-  fn: tidyxl_{{ version }}.tar.gz
   url:
     - {{ cran_mirror }}/src/contrib/tidyxl_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/tidyxl/tidyxl_{{ version }}.tar.gz
   sha256: 0e396e29003697f3c57320c94c45f55d3ec43f5dd5abdc7213abc33a285d0bf9
 
 build:
-  merge_build_host: true  # [win]
-  number: 0
-  skip: true  # [win32]
+  number: 1
   rpaths:
     - lib/R/lib/
     - lib/
@@ -24,8 +20,10 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}        # [not win]
+    - {{ stdlib("c") }}          # [not win]
     - {{ compiler('cxx') }}      # [not win]
     - {{ compiler('m2w64_c') }}        # [win]
+    - {{ stdlib("m2w64_c") }}          # [win]
     - {{ compiler('m2w64_cxx') }}        # [win]
     - {{ posix }}filesystem        # [win]
     - {{ posix }}make
@@ -35,12 +33,11 @@ requirements:
   host:
     - r-base
     - r-rcpp
-    - r-piton
+    - r-piton >=1.0.0
   run:
     - r-base
-    - {{ native }}gcc-libs         # [win]
     - r-rcpp
-    - r-piton
+    - r-piton >=1.0.0
 
 test:
   commands:
@@ -48,11 +45,12 @@ test:
     - "\"%R%\" -e \"library('tidyxl')\""  # [win]
 
 about:
-  home: https://github.com/nacnudus/tidyxl
-  license: GPL-3
+  home: https://github.com/nacnudus/tidyxl, https://nacnudus.github.io/tidyxl/
+  license: MIT
   summary: Imports non-tabular from Excel files into R.  Exposes cell content, position and formatting in a tidy structure for further manipulation. Tokenizes Excel formulas.  Supports '.xlsx' and '.xlsm' via the embedded 'RapidXML' C++ library <http://rapidxml.sourceforge.net>.  Does not support '.xlsb' or '.xls'.
-  license_family: GPL3
-  license_file: {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3
+  license_family: MIT
+  license_file:
+    - {{ environ["PREFIX"] }}/lib/R/share/licenses/MIT
 
 extra:
   recipe-maintainers:
